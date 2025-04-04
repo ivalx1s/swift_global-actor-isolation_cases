@@ -1,0 +1,48 @@
+## User Data
+
+*.xcuserdatad
+
+## entitlements should be generated using xcodegen
+*.entitlements
+
+# notes
+notes
+
+## OS X
+*.DS_Store
+.DS_Store
+
+## custom folder for DerivcedData
+DerivedData/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build
+
+# fastlane
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+fastlane/README.md
+fastlane/report.xml
+fastlane/test_output/
+
+.build
+.swiftpm
+.idea
+Info.plist
+*.xcworkspace
+*.framework
+*.xcframework
+*.pbxproj
+*.xcodeproj
+*.lock
+local-packages/
+proj_manifest.xcodeprojless
+code-coverage-reports/
+SourcePackages/
+
+# vscode
+buildServer.json
+
