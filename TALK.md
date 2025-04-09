@@ -251,7 +251,6 @@ didset:  <NSThread: 0x600001776880>{number = 8, name = (null)}
 
 - [Проект на GitHub](https://github.com/ivalx1s/swift_global-actor-isolation_cases/tree/main)
 
-**Авторы:**
+**Автор:**
 - Алексей Григорьев, техлид iOS-разработки продукта Membrana (Telegram: @a1exxxis)
-- Иван Опарин (Telegram: @ivanopcode)
 
