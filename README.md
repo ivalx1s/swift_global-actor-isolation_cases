@@ -131,6 +131,51 @@ extension LS {
 **Conclusion:**
 No isolation occurs, as the protocol conformance and method implementation are separated into different extensions.
 
+### 8. CASE_8_LS+IsolationOnType_EmbeddedTypeNotIsolated — Embedded Types Are Not Isolated
+
+```swift
+@MainActor
+@Observable
+final class LS {
+    var label = "Embedded"
+    var date: Date = .now {
+        didSet {
+            print("didset: ", Thread.current)
+        }
+    }
+
+    enum EmbeddedType {
+        static func printEmbeddedTypeThread() {
+            print("embedded type sync call: ", Thread.current)
+        }
+
+        static func printEmbeddedTypeThreadAsync() async {
+            print("embedded type async call: ", Thread.current)
+        }
+    }
+}
+
+extension LS: IUpdate {
+    func update(date: Date) async {
+        print("update: ", Thread.current)
+        await internalUpdate(date: date)
+        EmbeddedType.printEmbeddedTypeThread()
+        await EmbeddedType.printEmbeddedTypeThreadAsync()
+    }
+
+    private func internalUpdate(date: Date) async {
+        print("internalUpdate: ", Thread.current)
+        self.date = date
+    }
+}
+```
+
+**Conclusion:**
+Actor isolation applies only to the type itself. Static members of embedded types are not actor-isolated:
+- Synchronous calls on embedded types run on the caller’s thread.
+- Asynchronous calls are not automatically isolated.
+- The location of the embedded type (inside the class body or in an extension) does not affect this behavior.
+
 ## How to Use
 
 - Open the project in Xcode.
@@ -147,6 +192,7 @@ Each scenario includes comments about the console output, illustrating thread ex
 - Full isolation ensures all code runs on the main thread.
 - Partial isolation provides flexibility but requires careful implementation.
 - Lack of isolation can lead to data races.
+- Embedded types are not automatically isolated, so be cautious when invoking async code from them.
 
 Use this project as a clear guide for working with global actors in Swift Concurrency.
 
