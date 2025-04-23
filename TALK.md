@@ -221,7 +221,7 @@ extension LS {
         self.date = date
     }
 }
-
+```
 **Консольный вывод:**
 
 ```
